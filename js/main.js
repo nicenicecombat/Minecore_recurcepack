@@ -1,4 +1,0 @@
-const form=document.querySelector("#contactForm"),msg=document.querySelector("#formmsg");
-form.addEventListener("submit",e=>{e.preventDefault();const d=new FormData(form);const body=`Name: ${d.get("name")}\nE-Mail: ${d.get("email")}\nTelefon: ${d.get("phone")||"-"}\n\n${d.get("message")}`;msg.textContent="E-Mail wird vorbereitet …";location.href=`mailto:?subject=${encodeURIComponent("GYM10 Freiberg – Kontaktanfrage")}&body=${encodeURIComponent(body)}`});
-const observer=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add("show")),{threshold:.12});
-document.querySelectorAll("article,.img,.ticket,.hero-frame,.headphone").forEach(e=>observer.observe(e));
