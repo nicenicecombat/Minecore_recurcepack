@@ -32,7 +32,7 @@ section{padding:75px 7%}
 .head h2{font:900 42px Georgia;color:var(--r);margin:0 0 10px}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .card{background:#fff;border-radius:15px;overflow:hidden;box-shadow:0 7px 25px #0001}
-.card img{width:100%;height:190px;object-fit:cover}
+.card img{width:100%;height:220px;object-fit:cover}
 .pad{padding:21px}
 
 .menu{background:#211919;color:#fff}
@@ -45,8 +45,9 @@ section{padding:75px 7%}
 .menu .fine{text-align:center;color:#ffffffaa;font-size:13px;margin-top:30px}
 
 .tour{background:#eee6dd}
-.tour-stage{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 12px 30px #0002;aspect-ratio:16/9;max-height:480px}
-.tour-stage img{width:100%;height:100%;object-fit:cover;transition:opacity .2s ease}
+.tour-stage{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 12px 30px #0002;height:min(72vh,560px);background:#171313}
+.tour-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(22px) brightness(.55);transform:scale(1.15);transition:opacity .2s ease}
+.tour-stage img{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;transition:opacity .2s ease}
 .tour-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:none;background:#ffffffe6;font-size:1.5rem;cursor:pointer}
 .tour-nav:hover{background:var(--r);color:#fff}
 .tour-prev{left:14px}.tour-next{right:14px}
@@ -79,6 +80,7 @@ footer{background:#111;color:#ccc;text-align:center;padding:32px}
 footer a{color:var(--g);text-decoration:none}
 
 @media(max-width:750px){
+  .tour-stage{height:min(60vh,420px)}
   nav{padding:0 4%}
   .links{position:fixed;top:72px;left:0;right:0;background:#121212f5;flex-direction:column;align-items:stretch;padding:10px 6% 20px;gap:4px;transform:translateY(-8px);opacity:0;pointer-events:none;transition:.18s}
   .links.open{transform:translateY(0);opacity:1;pointer-events:auto}
@@ -124,9 +126,9 @@ footer a{color:var(--g);text-decoration:none}
 <section>
   <div class="head"><h2>Frisch. Lecker. Waraich.</h2><p>Was unsere Gäste erwartet</p></div>
   <div class="cards">
-    <div class="card"><img src="images/theke.jpg" alt="Frische Salate und Saucen an der Theke"><div class="pad"><b>Frische Zutaten</b><p>Qualität, die man schmeckt.</p></div></div>
-    <div class="card"><img src="images/eingang.jpg" alt="Eingangsbereich mit Dönerspieß"><div class="pad"><b>Leckere Gerichte</b><p>Döner, Pizza und mehr.</p></div></div>
-    <div class="card"><img src="images/innenraum.jpg" alt="Gastraum zum Verweilen"><div class="pad"><b>Freundlicher Service</b><p>Für unsere Gäste.</p></div></div>
+    <div class="card"><img src="images/theke.jpg" alt="Frische Salate und Saucen an der Theke" style="object-position:50% 75%"><div class="pad"><b>Frische Zutaten</b><p>Qualität, die man schmeckt.</p></div></div>
+    <div class="card"><img src="images/innenraum.jpg" alt="Gemütlicher Gastraum" style="object-position:50% 35%"><div class="pad"><b>Gemütliches Ambiente</b><p>Platz zum Verweilen und Genießen.</p></div></div>
+    <div class="card"><img src="images/eingang.jpg" alt="Eingangsbereich von Waraich" style="object-position:50% 30%"><div class="pad"><b>Herzlich Willkommen</b><p>Wir freuen uns auf Ihren Besuch.</p></div></div>
   </div>
 </section>
 
@@ -167,6 +169,7 @@ footer a{color:var(--g);text-decoration:none}
   <div class="head"><h2>Unser Rundgang</h2><p>Schauen Sie sich bei uns um — ganz bequem von zu Hause aus.</p></div>
   <div style="max-width:900px;margin:0 auto">
     <div class="tour-stage">
+      <div class="tour-bg" id="tour-bg" style="background-image:url('images/eingang.jpg')"></div>
       <img id="tour-image" src="images/eingang.jpg" alt="Eingangsbereich">
       <button class="tour-nav tour-prev" id="tour-prev" aria-label="Vorheriges Bild">‹</button>
       <button class="tour-nav tour-next" id="tour-next" aria-label="Nächstes Bild">›</button>
@@ -234,12 +237,16 @@ footer a{color:var(--g);text-decoration:none}
   });
   links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open');burger.setAttribute('aria-expanded','false');});});
 
-  var stage=document.getElementById('tour-image'),thumbs=Array.prototype.slice.call(document.querySelectorAll('.tour-thumb')),i=0;
+  var stage=document.getElementById('tour-image'),bg=document.getElementById('tour-bg'),thumbs=Array.prototype.slice.call(document.querySelectorAll('.tour-thumb')),i=0;
   function show(n){
     if(n<0)n=thumbs.length-1; if(n>=thumbs.length)n=0; i=n;
-    var t=thumbs[i];
-    stage.style.opacity=0;
-    setTimeout(function(){stage.src=t.getAttribute('data-src');stage.alt=t.querySelector('span').textContent;stage.style.opacity=1;},120);
+    var t=thumbs[i],src=t.getAttribute('data-src');
+    stage.style.opacity=0; bg.style.opacity=0;
+    setTimeout(function(){
+      stage.src=src; stage.alt=t.querySelector('span').textContent;
+      bg.style.backgroundImage="url('"+src+"')";
+      stage.style.opacity=1; bg.style.opacity=1;
+    },120);
     thumbs.forEach(function(x){x.classList.remove('active')});
     t.classList.add('active');
   }
