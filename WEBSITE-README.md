@@ -12,10 +12,8 @@ Enthalten:
 
 ## Struktur
 ```
-index.html
-css/style.css
-js/script.js
-images/   — Logo, Zertifikat, Aktion, Rundgang-Fotos
+index.html   — komplette Seite, HTML/CSS/JS in einer Datei
+images/      — Logo, Zertifikat, Aktion, Rundgang-Fotos
 ```
 
 ## Kontaktdaten
