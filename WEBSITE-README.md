@@ -1,14 +1,24 @@
-# GYM10 Freiberg — Premium Website
-Entpacke das ZIP und öffne `website/index.html`.
+# Waraich Döner & Pizzaria — Website
 
-Die Seite ist bewusst statisch aufgebaut und benötigt keinen Build-Prozess.
+Statische Website, kein Build-Prozess nötig. Einfach `index.html` öffnen oder per GitHub Pages deployen.
+
 Enthalten:
-- Premium Responsive Landingpage
-- Kontaktformular
-- starke Editorial-/3D-Depth-Inszenierung
-- abstraktes Headphone-3D-Element per CSS (kein externes 3D-Modell)
-- Bildgalerie
-- Preise, Ausstattung, Öffnungszeiten, Standort
-- Google-Maps-Routenlink
+- Responsive Landingpage im Marken-Look (Schwarz/Gold/Rot)
+- Klickbarer Telefonkontakt (Anruf-Button im Header, Hero & Kontaktbereich)
+- Virtueller Rundgang: Bildergalerie mit Vor-/Zurück-Navigation und Thumbnails
+- Treue-Aktion (VR-Brillen-Gewinnspiel)
+- Qualitäts-/Zertifikatsbereich
+- Öffnungszeiten, Zahlungshinweis (nur Bargeld) & Standort mit eingebetteter Google-Maps-Karte
 
-Hinweis zu Markenassets: Das enthaltene SVG ist eine nachgebildete Wortmarke und kein vom Markeninhaber bereitgestelltes Original-Logo. Für einen öffentlichen Launch sollte ein offiziell freigegebenes GYM10-Logo verwendet werden. Die verwendeten Fotos sind externe Unsplash-Fotografie und sollten für einen realen GYM10-Auftritt durch entsprechend lizenzierte Originalfotos der Filiale ersetzt werden.
+## Struktur
+```
+index.html
+css/style.css
+js/script.js
+images/   — Logo, Zertifikat, Aktion, Rundgang-Fotos
+```
+
+## Kontaktdaten
+- Adresse: Bahnhofstraße 10, 09599 Freiberg
+- Telefon: 01623 020545
+- Öffnungszeiten: Mo–Sa 11–14 & 16–22 Uhr, So & Feiertag 12–21 Uhr
