@@ -1,319 +1,252 @@
 <!doctype html>
 <html lang="de">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Waraich Döner &amp; Pizzaria — Freiberg</title>
-<meta name="description" content="Waraich Döner &amp; Pizzaria in Freiberg: frischer Döner, Pizza &amp; mehr. Bahnhofstraße 10, 09599 Freiberg. Jetzt anrufen: 01623020545.">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Waraich Döner & Pizzaria — Freiberg</title>
+<meta name="description" content="Waraich Döner & Pizzaria in Freiberg: frischer Döner, Pizza & türkische Spezialitäten. Bahnhofstraße 10, 09599 Freiberg. Jetzt anrufen: 01623020545.">
 <link rel="icon" href="images/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<style>
+:root{--r:#a51d25;--g:#c69a52;--d:#171313;--c:#f7f1e9}*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--c);color:#211b1b;font:16px Arial,sans-serif}
+nav{position:fixed;z-index:20;top:0;width:100%;height:72px;background:#121212ee;color:#fff;display:flex;align-items:center;padding:0 6%;gap:30px;backdrop-filter:blur(6px)}
+.logo{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none}
+.logo img{width:42px;height:42px;border-radius:50%}
+.logo b{font:900 23px Georgia;display:block}
+.logo small{display:block;font:9px Arial;letter-spacing:1px;color:#ddd;margin-top:2px}
+nav .links{margin-left:auto;display:flex;align-items:center;gap:25px}
+nav a{color:#fff;text-decoration:none;font-size:14px}
+nav a:hover{color:var(--g)}
+.btn{background:var(--r);color:#fff;border:0;border-radius:7px;padding:13px 19px;font-weight:bold;text-decoration:none;display:inline-block;cursor:pointer;font:inherit}
+.btn:hover{background:#8c1119}
+.burger{display:none;margin-left:auto;background:none;border:0;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+.burger span{width:24px;height:2px;background:#fff}
+
+.hero{min-height:680px;padding:145px 7% 80px;color:#fff;display:flex;align-items:center;background:linear-gradient(90deg,#080606dc,#08060665),url('images/theke.jpg') center/cover}
+.hero h1{font:900 clamp(46px,7vw,82px)/.95 Georgia;margin:18px 0}
+.hero p{font-size:21px;max-width:520px}
+.tag{color:#ffd99a;border:1px solid #ffd99a;border-radius:30px;padding:7px 12px;font-size:13px}
+.notice{margin-top:25px;background:#fff;color:#222;padding:17px 20px;border-left:5px solid var(--r);max-width:460px}
+
+section{padding:75px 7%}
+.head{text-align:center;margin-bottom:38px}
+.head h2{font:900 42px Georgia;color:var(--r);margin:0 0 10px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{background:#fff;border-radius:15px;overflow:hidden;box-shadow:0 7px 25px #0001}
+.card img{width:100%;height:190px;object-fit:cover}
+.pad{padding:21px}
+
+.menu{background:#211919;color:#fff}
+.menu .head h2{color:#ffd28a}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.box{background:#2c2323;color:#fff;padding:25px;border-radius:15px}
+.box h3{font:800 27px Georgia;color:#ffd28a;margin-top:0}
+.item{padding:12px 0;border-bottom:1px solid #ffffff22;display:flex;justify-content:space-between;gap:12px}
+.item span{color:#ffd28a;font-weight:bold;white-space:nowrap}
+.menu .fine{text-align:center;color:#ffffffaa;font-size:13px;margin-top:30px}
+
+.tour{background:#eee6dd}
+.tour-stage{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 12px 30px #0002;aspect-ratio:16/9;max-height:480px}
+.tour-stage img{width:100%;height:100%;object-fit:cover;transition:opacity .2s ease}
+.tour-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:none;background:#ffffffe6;font-size:1.5rem;cursor:pointer}
+.tour-nav:hover{background:var(--r);color:#fff}
+.tour-prev{left:14px}.tour-next{right:14px}
+.tour-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
+.tour-thumb{padding:0;border:3px solid transparent;border-radius:10px;overflow:hidden;cursor:pointer;background:#fff}
+.tour-thumb img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.tour-thumb span{display:block;padding:7px 4px;font-size:.8rem;color:#665f56}
+.tour-thumb.active{border-color:var(--r)}
+.tour-thumb.active span{color:var(--r);font-weight:bold}
+
+.quality{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.quality img{width:100%;border-radius:15px;box-shadow:0 7px 25px #0002}
+.quality ul{padding-left:20px;line-height:1.9}
+
+.promo{background:var(--d);color:#fff;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.promo img{width:100%;border-radius:15px;box-shadow:0 7px 25px #0004}
+.promo h2{font:900 34px Georgia;color:var(--g);margin-top:0}
+.promo .fine{color:#ffffff99;font-size:13px}
+
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.contact .box{background:#fff;color:#211b1b;padding:30px;border:1px solid #eadfcf}
+.contact .box h3{font:800 24px Georgia;margin-top:0;color:var(--r)}
+.contact a:not(.btn){color:var(--r);font-weight:bold;text-decoration:none}
+.form input,.form textarea{width:100%;padding:13px;margin:0 0 12px;border:1px solid #ddd;border-radius:7px;font:inherit}
+.form textarea{height:110px;resize:vertical}
+.map{border-radius:15px;overflow:hidden;border:1px solid #eadfcf;min-height:260px}
+.map iframe{width:100%;height:100%;min-height:260px;border:0;display:block}
+
+footer{background:#111;color:#ccc;text-align:center;padding:32px}
+footer a{color:var(--g);text-decoration:none}
+
+@media(max-width:750px){
+  nav{padding:0 4%}
+  .links{position:fixed;top:72px;left:0;right:0;background:#121212f5;flex-direction:column;align-items:stretch;padding:10px 6% 20px;gap:4px;transform:translateY(-8px);opacity:0;pointer-events:none;transition:.18s}
+  .links.open{transform:translateY(0);opacity:1;pointer-events:auto}
+  .links a:not(.btn){display:block;padding:12px 6px}
+  .links .btn{margin-top:6px;text-align:center}
+  .burger{display:flex}
+  .cards,.grid,.contact,.quality,.promo{grid-template-columns:1fr}
+  .quality,.promo{gap:24px}
+  .hero{padding:125px 6% 70px}
+  section{padding:55px 5%}
+  .tour-thumbs{gap:8px}
+  .tour-thumb span{font-size:.68rem}
+}
+</style>
 </head>
 <body>
+<nav>
+  <a class="logo" href="#start">
+    <img src="images/logo.png" alt="Waraich Logo">
+    <span><b>WARAICH</b><small>DÖNER · PIZZA · TÜRKISCHE SPEZIALITÄTEN</small></span>
+  </a>
+  <div class="links" id="links">
+    <a href="#start">Startseite</a>
+    <a href="#menu">Speisekarte</a>
+    <a href="#tour">Rundgang</a>
+    <a href="#qualitaet">Qualität</a>
+    <a href="#kontakt">Kontakt</a>
+    <a class="btn" href="tel:+4901623020545">Jetzt anrufen</a>
+  </div>
+  <button class="burger" id="burger" aria-label="Menü" aria-expanded="false" aria-controls="links"><span></span><span></span><span></span></button>
+</nav>
 
-<a class="skip-link" href="#main">Zum Inhalt springen</a>
-
-<header class="site-header" id="top">
-  <div class="header-inner">
-    <a class="brand" href="#top">
-      <img src="images/logo.png" alt="Waraich Döner &amp; Pizzaria Logo" width="48" height="48">
-      <span class="brand-text">Waraich<em>Döner · Pizza · Türkische Spezialitäten</em></span>
-    </a>
-
-    <nav class="main-nav" id="main-nav">
-      <a href="#top">Startseite</a>
-      <a href="#speisekarte">Speisekarte</a>
-      <a href="#rundgang">Rundgang</a>
-      <a href="#ueber-uns">Über uns</a>
-      <a href="#kontakt">Kontakt</a>
-    </nav>
-
-    <a class="call-pill" href="tel:+4901623020545">
-      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      <span>Jetzt anrufen</span>
-    </a>
-
-    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Menü öffnen">
-      <span></span><span></span><span></span>
-    </button>
+<header id="start" class="hero">
+  <div>
+    <span class="tag">DÖNER · PIZZA · TÜRKISCHE SPEZIALITÄTEN</span>
+    <h1>Herzlich<br>Willkommen</h1>
+    <p>Leckere Gerichte. Frische Zutaten. Immer mit Herz.</p>
+    <a class="btn" href="#menu">Speisekarte ansehen →</a>
+    <div class="notice"><b>Keine Kartenzahlung, nur Bargeld!</b><br>NO CARDS – CASH ONLY!</div>
   </div>
 </header>
 
-<main id="main">
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-inner">
-      <div class="hero-text">
-        <span class="eyebrow">Freiberg · Bahnhofstraße 10</span>
-        <h1>Herzlich<br>Willkommen</h1>
-        <p class="hero-sub">Leckere Gerichte. Frische Zutaten. Immer mit Herz.<br>Döner, Pizza &amp; türkische Spezialitäten — täglich frisch für dich zubereitet.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#speisekarte">Speisekarte ansehen →</a>
-          <a class="btn btn-outline" href="tel:+4901623020545">📞 Jetzt anrufen</a>
-        </div>
-      </div>
-      <div class="hero-media">
-        <img src="images/theke.jpg" alt="Frische Salate und Saucen an der Theke von Waraich Döner">
-        <div class="hero-badge">
-          <strong>Nur Bargeld</strong>
-          <span>Kartenzahlung derzeit nicht möglich</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="feature-row">
-      <div class="feature">
-        <span class="feature-icon">🍽️</span>
-        <h3>Frische Zutaten</h3>
-        <p>Qualität, die man schmeckt</p>
-      </div>
-      <div class="feature">
-        <span class="feature-icon">❤️</span>
-        <h3>Leckere Gerichte</h3>
-        <p>Döner, Pizza und mehr</p>
-      </div>
-      <div class="feature">
-        <span class="feature-icon">🤝</span>
-        <h3>Freundlicher Service</h3>
-        <p>Für unsere Gäste</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SPEISEKARTE -->
-  <section class="section" id="speisekarte">
-    <div class="section-inner">
-      <div class="section-head">
-        <span class="eyebrow">Speisekarte</span>
-        <h2>Vielfalt. Frisch. Lecker.</h2>
-      </div>
-
-      <div class="menu-tabs" id="menu-tabs" role="tablist">
-        <button class="menu-tab is-active" data-filter="all">Alle</button>
-        <button class="menu-tab" data-filter="doener">Döner &amp; Dürüm</button>
-        <button class="menu-tab" data-filter="pizza">Pizza</button>
-        <button class="menu-tab" data-filter="snacks">Snacks &amp; Pide</button>
-        <button class="menu-tab" data-filter="salate">Salate</button>
-        <button class="menu-tab" data-filter="getraenke">Getränke</button>
-      </div>
-
-      <div class="menu-grid" id="menu-grid">
-
-        <div class="menu-col">
-          <h3 class="menu-cat" data-cat="doener">Döner &amp; Dürüm</h3>
-          <div class="menu-item" data-cat="doener">
-            <div class="menu-item-head"><span>Döner im Fladenbrot</span><span class="price">6,50 €</span></div>
-            <p>Mit Salat und Soße nach Wahl</p>
-          </div>
-          <div class="menu-item" data-cat="doener">
-            <div class="menu-item-head"><span>Dürüm Döner</span><span class="price">7,00 €</span></div>
-            <p>Im Weizenwrap, mit Salat und Soße</p>
-          </div>
-          <div class="menu-item" data-cat="doener">
-            <div class="menu-item-head"><span>Döner Box</span><span class="price">6,50 €</span></div>
-            <p>Mit Pommes, Salat und Soße</p>
-          </div>
-          <div class="menu-item" data-cat="doener">
-            <div class="menu-item-head"><span>Iskender Teller</span><span class="price">9,50 €</span></div>
-            <p>Dönerfleisch auf Brot, Tomatensoße &amp; Joghurt</p>
-          </div>
-
-          <h3 class="menu-cat" data-cat="salate">Salate</h3>
-          <div class="menu-item" data-cat="salate">
-            <div class="menu-item-head"><span>Bauernsalat</span><span class="price">5,50 €</span></div>
-            <p>Gurke, Tomate, Zwiebel, Feta</p>
-          </div>
-          <div class="menu-item" data-cat="salate">
-            <div class="menu-item-head"><span>Hirtensalat</span><span class="price">6,50 €</span></div>
-            <p>Mit extra Schafskäse</p>
-          </div>
-        </div>
-
-        <div class="menu-col">
-          <h3 class="menu-cat" data-cat="pizza">Pizza <small>Ø 28 cm</small></h3>
-          <div class="menu-item" data-cat="pizza">
-            <div class="menu-item-head"><span>Margherita</span><span class="price">6,50 €</span></div>
-            <p>Tomatensoße, Käse</p>
-          </div>
-          <div class="menu-item" data-cat="pizza">
-            <div class="menu-item-head"><span>Salami</span><span class="price">7,50 €</span></div>
-            <p>Tomatensoße, Käse, Salami</p>
-          </div>
-          <div class="menu-item" data-cat="pizza">
-            <div class="menu-item-head"><span>Funghi</span><span class="price">7,50 €</span></div>
-            <p>Tomatensoße, Käse, Champignons</p>
-          </div>
-          <div class="menu-item" data-cat="pizza">
-            <div class="menu-item-head"><span>Waraich Spezial</span><span class="price">9,50 €</span></div>
-            <p>Salami, Schinken, Champignons, Paprika</p>
-          </div>
-
-          <h3 class="menu-cat" data-cat="snacks">Snacks &amp; Pide</h3>
-          <div class="menu-item" data-cat="snacks">
-            <div class="menu-item-head"><span>Lahmacun</span><span class="price">4,50 €</span></div>
-            <p>Dünner Fladen mit Hackfleisch-Belag</p>
-          </div>
-          <div class="menu-item" data-cat="snacks">
-            <div class="menu-item-head"><span>Pide mit Hackfleisch</span><span class="price">8,50 €</span></div>
-            <p>Türkisches Ofenschiffchen</p>
-          </div>
-
-          <h3 class="menu-cat" data-cat="getraenke">Getränke</h3>
-          <div class="menu-item" data-cat="getraenke">
-            <div class="menu-item-head"><span>Softdrinks 0,5 l</span><span class="price">2,00 €</span></div>
-          </div>
-          <div class="menu-item" data-cat="getraenke">
-            <div class="menu-item-head"><span>Ayran 0,25 l</span><span class="price">2,00 €</span></div>
-          </div>
-        </div>
-
-      </div>
-      <p class="fine-print center">Preise können variieren — bitte im Laden erfragen. Alle Gerichte auch zum Mitnehmen.</p>
-    </div>
-  </section>
-
-  <!-- RUNDGANG -->
-  <section class="section section-tint" id="rundgang">
-    <div class="section-inner">
-      <div class="section-head">
-        <span class="eyebrow">Virtueller Rundgang</span>
-        <h2>Schauen Sie sich bei uns um</h2>
-        <p>Ganz bequem von zu Hause aus — ein Blick in unseren Laden.</p>
-      </div>
-
-      <div class="tour" id="tour">
-        <div class="tour-stage">
-          <img id="tour-image" src="images/eingang.jpg" alt="Eingangsbereich von Waraich Döner &amp; Pizzaria">
-          <button class="tour-nav tour-prev" id="tour-prev" aria-label="Vorheriges Bild">‹</button>
-          <button class="tour-nav tour-next" id="tour-next" aria-label="Nächstes Bild">›</button>
-          <button class="tour-fullscreen" id="tour-fullscreen" aria-label="Bild vollständig anzeigen">⤢</button>
-        </div>
-
-        <div class="tour-thumbs" id="tour-thumbs">
-          <button class="tour-thumb is-active" data-index="0" data-src="images/eingang.jpg" data-caption="Eingangsbereich">
-            <img src="images/eingang.jpg" alt="Eingangsbereich" loading="lazy">
-            <span>Eingangsbereich</span>
-          </button>
-          <button class="tour-thumb" data-index="1" data-src="images/theke.jpg" data-caption="Theke">
-            <img src="images/theke.jpg" alt="Theke mit frischen Salaten" loading="lazy">
-            <span>Theke</span>
-          </button>
-          <button class="tour-thumb" data-index="2" data-src="images/innenraum.jpg" data-caption="Gastraum">
-            <img src="images/innenraum.jpg" alt="Gastraum / Sitzbereich" loading="lazy">
-            <span>Gastraum</span>
-          </button>
-          <button class="tour-thumb" data-index="3" data-src="images/zertifikat.jpg" data-caption="Qualität &amp; Zutaten">
-            <img src="images/zertifikat.jpg" alt="Zutaten- und Zertifikatstafel" loading="lazy">
-            <span>Qualität</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ÜBER UNS / QUALITÄT -->
-  <section class="section" id="ueber-uns">
-    <div class="section-inner two-col">
-      <div class="col-text">
-        <span class="eyebrow">Qualität ist unsere Stärke</span>
-        <h2>Handwerk statt Fließband</h2>
-        <p>Bei Waraich Döner &amp; Pizzaria kommt nichts auf den Tisch, das wir nicht selbst probieren würden. Unser Hähnchendreh­spieß und der Hackfleischspieß werden nach Döner-Kebab-Art gewürzt und in Zusammenarbeit mit einem mikrobiologischen Fachlabor regelmäßig auf Qualität geprüft.</p>
-        <ul class="check-list">
-          <li>Freiwillige mikrobiologische Eigenkontrolle nach § 64 LFGB</li>
-          <li>Frisches Gemüse &amp; hausgemachte Saucen — täglich zubereitet</li>
-          <li>Döner, Dürüm, Pizza, Snacks &amp; Menüs</li>
-        </ul>
-      </div>
-      <div class="col-media">
-        <img src="images/zertifikat.jpg" alt="Zertifikat der mikrobiologischen Eigenkontrolle und Zutatenübersicht von Waraich Döner" loading="lazy">
-      </div>
-    </div>
-  </section>
-
-  <!-- AKTION -->
-  <section class="section section-tint" id="aktion">
-    <div class="section-inner two-col reverse">
-      <div class="col-media">
-        <img src="images/aktion-vr.jpg" alt="Treue-Aktion: 30 Mal in 2 Monaten kaufen und eine VR-Brille gewinnen" loading="lazy">
-      </div>
-      <div class="col-text">
-        <span class="eyebrow">Treue wird belohnt</span>
-        <h2>30× kaufen, VR-Brille gewinnen</h2>
-        <p>Wenn du in 2 Monaten 30 Mal bei uns kaufst, schenken wir dir eine VR-Brille inkl. Bluetooth-Controller — 3D-Filme, 360°, VR-Games und mehr.</p>
-        <p class="fine-print">Aktion gültig vom 3.9. bis 10.11.2026. Nicht übertragbar. Solange der Vorrat reicht.</p>
-        <a class="btn btn-primary" href="tel:+4901623020545">Jetzt anrufen &amp; mitmachen</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- KONTAKT -->
-  <section class="section" id="kontakt">
-    <div class="section-inner">
-      <div class="section-head">
-        <span class="eyebrow">Kontakt</span>
-        <h2>Kontaktieren Sie uns</h2>
-        <p>Wir freuen uns auf Ihren Anruf oder Besuch!</p>
-      </div>
-
-      <div class="contact-grid">
-        <div class="contact-info">
-          <div class="contact-row">
-            <span class="contact-icon">📍</span>
-            <div><strong>Bahnhofstraße 10</strong><br>09599 Freiberg</div>
-          </div>
-          <div class="contact-row">
-            <span class="contact-icon">📞</span>
-            <div><a class="info-link" href="tel:+4901623020545">01623 020545</a></div>
-          </div>
-          <div class="contact-row">
-            <span class="contact-icon">🕐</span>
-            <div>
-              <strong>Öffnungszeiten</strong><br>
-              Mo–Sa 11:00–14:00 &amp; 16:00–22:00<br>
-              So &amp; Feiertag 12:00–21:00
-            </div>
-          </div>
-          <div class="contact-row">
-            <span class="contact-icon">💶</span>
-            <div>Nur Bargeld — keine Kartenzahlung</div>
-          </div>
-          <a class="btn btn-primary contact-call-btn" href="tel:+4901623020545">📞 Jetzt anrufen</a>
-        </div>
-
-        <div class="map-wrap">
-          <iframe
-            title="Standort Waraich Döner & Pizzaria"
-            src="https://www.google.com/maps?q=Bahnhofstra%C3%9Fe+10,+09599+Freiberg&output=embed"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- FULLSCREEN LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" id="lightbox-close" aria-label="Schließen">✕</button>
-  <img id="lightbox-image" src="" alt="">
-</div>
-
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="images/logo.png" alt="Waraich Döner &amp; Pizzaria Logo" width="40" height="40">
-      <span>Waraich Döner &amp; Pizzaria</span>
-    </div>
-    <p>Bahnhofstraße 10, 09599 Freiberg · <a href="tel:+4901623020545">01623 020545</a></p>
-    <p class="footer-copy">© 2026 Waraich Döner &amp; Pizzaria. Alle Rechte vorbehalten.</p>
+<section>
+  <div class="head"><h2>Frisch. Lecker. Waraich.</h2><p>Was unsere Gäste erwartet</p></div>
+  <div class="cards">
+    <div class="card"><img src="images/theke.jpg" alt="Frische Salate und Saucen an der Theke"><div class="pad"><b>Frische Zutaten</b><p>Qualität, die man schmeckt.</p></div></div>
+    <div class="card"><img src="images/eingang.jpg" alt="Eingangsbereich mit Dönerspieß"><div class="pad"><b>Leckere Gerichte</b><p>Döner, Pizza und mehr.</p></div></div>
+    <div class="card"><img src="images/innenraum.jpg" alt="Gastraum zum Verweilen"><div class="pad"><b>Freundlicher Service</b><p>Für unsere Gäste.</p></div></div>
   </div>
-</footer>
+</section>
 
-<script src="js/script.js"></script>
+<section id="menu" class="menu">
+  <div class="head"><h2>Speisekarte</h2><p>Vielfalt. Frisch. Lecker.</p></div>
+  <div class="grid">
+    <div class="box">
+      <h3>Döner &amp; Dürüm</h3>
+      <div class="item"><span>Döner im Fladenbrot</span><span>7,00 €</span></div>
+      <div class="item"><span>Dürüm Döner</span><span>7,50 €</span></div>
+      <div class="item"><span>Döner Box</span><span>6,50 €</span></div>
+      <div class="item"><span>Iskender Teller</span><span>9,50 €</span></div>
+    </div>
+    <div class="box">
+      <h3>Pizza <small style="font-size:14px;color:#ffffffaa">Ø 28 cm</small></h3>
+      <div class="item"><span>Margherita</span><span>5,00 €</span></div>
+      <div class="item"><span>Salami</span><span>6,00 €</span></div>
+      <div class="item"><span>Schinken</span><span>6,00 €</span></div>
+      <div class="item"><span>Funghi</span><span>6,00 €</span></div>
+    </div>
+    <div class="box">
+      <h3>Snacks &amp; Pide</h3>
+      <div class="item"><span>Lahmacun</span><span>4,50 €</span></div>
+      <div class="item"><span>Pide mit Hackfleisch</span><span>8,50 €</span></div>
+      <div class="item"><span>Falafel im Brot</span><span>6,00 €</span></div>
+    </div>
+    <div class="box">
+      <h3>Salate &amp; Getränke</h3>
+      <div class="item"><span>Bauernsalat</span><span>5,50 €</span></div>
+      <div class="item"><span>Hirtensalat</span><span>6,50 €</span></div>
+      <div class="item"><span>Ayran 0,25 l</span><span>2,00 €</span></div>
+    </div>
+  </div>
+  <p class="fine">Preise können variieren — bitte im Laden erfragen.</p>
+</section>
+
+<section id="tour" class="tour">
+  <div class="head"><h2>Unser Rundgang</h2><p>Schauen Sie sich bei uns um — ganz bequem von zu Hause aus.</p></div>
+  <div style="max-width:900px;margin:0 auto">
+    <div class="tour-stage">
+      <img id="tour-image" src="images/eingang.jpg" alt="Eingangsbereich">
+      <button class="tour-nav tour-prev" id="tour-prev" aria-label="Vorheriges Bild">‹</button>
+      <button class="tour-nav tour-next" id="tour-next" aria-label="Nächstes Bild">›</button>
+    </div>
+    <div class="tour-thumbs" id="tour-thumbs">
+      <button class="tour-thumb active" data-src="images/eingang.jpg"><img src="images/eingang.jpg" alt="Eingang"><span>Eingang</span></button>
+      <button class="tour-thumb" data-src="images/theke.jpg"><img src="images/theke.jpg" alt="Theke"><span>Theke</span></button>
+      <button class="tour-thumb" data-src="images/innenraum.jpg"><img src="images/innenraum.jpg" alt="Gastraum"><span>Gastraum</span></button>
+      <button class="tour-thumb" data-src="images/zertifikat.jpg"><img src="images/zertifikat.jpg" alt="Qualität"><span>Qualität</span></button>
+    </div>
+  </div>
+</section>
+
+<section id="qualitaet">
+  <div class="head"><h2>Qualität ist unsere Stärke</h2><p>Handwerk statt Fließband</p></div>
+  <div class="quality">
+    <div>
+      <p>Unser Hähnchendrehspieß und der Hackfleischspieß werden nach Döner-Kebab-Art gewürzt und in Zusammenarbeit mit einem mikrobiologischen Fachlabor regelmäßig auf Qualität geprüft.</p>
+      <ul>
+        <li>Freiwillige mikrobiologische Eigenkontrolle nach § 64 LFGB</li>
+        <li>Frisches Gemüse &amp; hausgemachte Saucen — täglich zubereitet</li>
+        <li>Döner, Dürüm, Pizza, Snacks &amp; Menüs</li>
+      </ul>
+    </div>
+    <img src="images/zertifikat.jpg" alt="Zertifikat der mikrobiologischen Eigenkontrolle und Zutatenübersicht">
+  </div>
+</section>
+
+<section class="promo">
+  <img src="images/aktion-vr.jpg" alt="Treue-Aktion: 30 Mal in 2 Monaten kaufen und eine VR-Brille gewinnen">
+  <div>
+    <span class="tag">Treue wird belohnt</span>
+    <h2>30× kaufen, VR-Brille gewinnen</h2>
+    <p>Wenn du in 2 Monaten 30 Mal bei uns kaufst, schenken wir dir eine VR-Brille inkl. Bluetooth-Controller.</p>
+    <p class="fine">Aktion gültig vom 3.9. bis 10.11.2026. Nicht übertragbar. Solange der Vorrat reicht.</p>
+    <a class="btn" href="tel:+4901623020545">Jetzt anrufen &amp; mitmachen</a>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="head"><h2>Kontakt</h2><p>Wir freuen uns auf Ihren Besuch!</p></div>
+  <div class="contact">
+    <div class="box">
+      <h3>Waraich Döner &amp; Pizzaria</h3>
+      <p>📍 Bahnhofstraße 10<br>09599 Freiberg</p>
+      <p>☎ <a href="tel:+4901623020545">01623 020545</a></p>
+      <p>🕐 Mo–Sa: 11:00–14:00 · 16:00–22:00<br>So &amp; Feiertag: 12:00–21:00</p>
+      <p>💶 Nur Bargeld — keine Kartenzahlung</p>
+      <a class="btn" href="tel:+4901623020545" style="margin-top:8px">📞 Jetzt anrufen</a>
+    </div>
+    <div class="box map">
+      <iframe title="Standort Waraich Döner & Pizzaria" src="https://www.google.com/maps?q=Bahnhofstra%C3%9Fe+10,+09599+Freiberg&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer><b>WARAICH DÖNER &amp; PIZZARIA</b><br>Bahnhofstraße 10 · 09599 Freiberg · <a href="tel:+4901623020545">01623 020545</a></footer>
+
+<script>
+(function(){
+  var burger=document.getElementById('burger'),links=document.getElementById('links');
+  burger.addEventListener('click',function(){
+    var open=links.classList.toggle('open');
+    burger.setAttribute('aria-expanded',open?'true':'false');
+  });
+  links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open');burger.setAttribute('aria-expanded','false');});});
+
+  var stage=document.getElementById('tour-image'),thumbs=Array.prototype.slice.call(document.querySelectorAll('.tour-thumb')),i=0;
+  function show(n){
+    if(n<0)n=thumbs.length-1; if(n>=thumbs.length)n=0; i=n;
+    var t=thumbs[i];
+    stage.style.opacity=0;
+    setTimeout(function(){stage.src=t.getAttribute('data-src');stage.alt=t.querySelector('span').textContent;stage.style.opacity=1;},120);
+    thumbs.forEach(function(x){x.classList.remove('active')});
+    t.classList.add('active');
+  }
+  thumbs.forEach(function(t,n){t.addEventListener('click',function(){show(n)})});
+  document.getElementById('tour-prev').addEventListener('click',function(){show(i-1)});
+  document.getElementById('tour-next').addEventListener('click',function(){show(i+1)});
+})();
+</script>
 </body>
 </html>
