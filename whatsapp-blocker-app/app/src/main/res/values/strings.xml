@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">WhatsApp Blocker</string>
+
+    <string name="usage_label">Heutige WhatsApp-Zeit</string>
+    <string name="usage_unknown">–</string>
+
+    <string name="status_active">Blockierung ist AKTIV – WhatsApp schließt sich beim Öffnen sofort wieder.</string>
+    <string name="status_inactive">Blockierung ist AUS – WhatsApp lässt sich normal nutzen.</string>
+
+    <string name="button_activate">AKTIVIEREN</string>
+    <string name="button_deactivate">DEAKTIVIEREN</string>
+
+    <string name="warning_accessibility">Damit die Blockierung funktioniert, muss der Bedienungshilfen-Dienst dieser App aktiviert werden.</string>
+    <string name="button_open_accessibility_settings">Bedienungshilfe aktivieren</string>
+
+    <string name="warning_usage_access">Für die Anzeige der WhatsApp-Nutzungszeit wird Zugriff auf die App-Nutzungsdaten benötigt.</string>
+    <string name="button_open_usage_settings">Nutzungszugriff erlauben</string>
+
+    <string name="toast_whatsapp_blocked">WhatsApp ist blockiert</string>
+
+    <string name="accessibility_service_description">Erkennt, wenn WhatsApp geöffnet wird, und schließt es sofort wieder, solange die Blockierung in der App aktiviert ist.</string>
+</resources>

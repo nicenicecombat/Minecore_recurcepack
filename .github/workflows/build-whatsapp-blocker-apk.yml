@@ -1,0 +1,60 @@
+name: Build WhatsApp Blocker APK
+
+on:
+  push:
+    branches:
+      - claude/whatsapp-blocker-app-v5lp9u
+      - main
+    paths:
+      - "whatsapp-blocker-app/**"
+      - ".github/workflows/build-whatsapp-blocker-apk.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: whatsapp-blocker-app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug --no-daemon
+
+      - name: Upload APK as build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: whatsapp-blocker-debug-apk
+          path: whatsapp-blocker-app/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Publish APK as downloadable release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: whatsapp-blocker-apk
+          name: WhatsApp Blocker (latest build)
+          body: |
+            Automatisch gebaute Debug-APK der WhatsApp-Blocker-App.
+            Lade `app-debug.apk` herunter und installiere sie auf deinem Handy
+            (Installation aus unbekannten Quellen muss erlaubt sein).
+          artifacts: whatsapp-blocker-app/app/build/outputs/apk/debug/app-debug.apk
+          allowUpdates: true
+          replacesArtifacts: true
+          makeLatest: true
+          token: ${{ secrets.GITHUB_TOKEN }}

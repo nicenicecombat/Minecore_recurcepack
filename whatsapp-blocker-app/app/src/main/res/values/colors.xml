@@ -1,0 +1,5 @@
+<resources>
+    <color name="blocker_red">#E53935</color>
+    <color name="blocker_green">#43A047</color>
+    <color name="ic_launcher_background">#1B1B1B</color>
+</resources>
