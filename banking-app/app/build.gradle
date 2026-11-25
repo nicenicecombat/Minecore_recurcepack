@@ -7,8 +7,20 @@ android {
         applicationId "de.konzept.banking"
         minSdk 24
         targetSdk 34
-        versionCode 2
-        versionName "1.1"
+        versionCode 3
+        versionName "1.2"
+    }
+    signingConfigs {
+        // Fester Schluessel nur fuer dieses Konzept-Projekt, damit Updates ueber die alte Version installieren
+        konzept {
+            storeFile file("../keystore/konzept.jks")
+            storePassword "konzept123"
+            keyAlias "konzept"
+            keyPassword "konzept123"
+        }
+    }
+    buildTypes {
+        debug { signingConfig signingConfigs.konzept }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
