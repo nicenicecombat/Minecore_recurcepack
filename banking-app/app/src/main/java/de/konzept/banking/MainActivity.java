@@ -27,7 +27,9 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if (web != null && web.canGoBack()) web.goBack();
-        else super.onBackPressed();
+        if (web == null) { super.onBackPressed(); return; }
+        web.evaluateJavascript("window.appBack ? appBack() : false", result -> {
+            if (!"true".equals(result)) MainActivity.super.onBackPressed();
+        });
     }
 }

@@ -2,105 +2,514 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Banking App Konzept</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>Banking Konzept</title>
 <style>
 :root{
-  --bg:#0b131c; --card:#14202b; --card2:#1a2834; --line:#2a3a48;
-  --text:#eef3f7; --muted:#8a9aa8; --blue:#0a64c2; --blue-soft:#10263a; --link:#3ea6ff;
-  --green:#3fcf8e; --red:#ff6b6b;
+  --bg:#0b131c; --card:#131f2a; --card2:#1a2834; --line:#25364460; --line2:#2a3a48;
+  --text:#eef3f7; --muted:#8a9aa8; --dim:#5f707e;
+  --blue:#0a64c2; --blue-soft:#10263a; --link:#3ea6ff;
+  --green:#3fcf8e; --red:#ff6b6b; --amber:#f5c26b;
+  color-scheme:dark;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;display:flex;justify-content:center;min-height:100vh}
-.app{width:100%;max-width:430px;min-height:100vh;display:flex;flex-direction:column;position:relative}
-.demo{align-self:center;margin-top:10px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#f5c26b;border:1px solid #5a4620;background:#2a2112;padding:3px 10px;border-radius:99px}
-header{text-align:center;color:var(--muted);font-size:18px;padding:14px 0 18px;font-weight:500}
-.main{flex:1;padding:0 16px 110px;overflow-y:auto}
-.total{display:flex;align-items:center;gap:14px}
-.total h1{font-size:32px;font-weight:700;letter-spacing:-.5px}
-.eye{background:none;border:0;color:var(--muted);cursor:pointer;padding:4px;display:flex}
-.sub{color:var(--muted);font-size:16px;margin:8px 0 20px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
-.row{display:flex;gap:14px;align-items:flex-start}
-.ico{width:46px;height:46px;border-radius:10px;background:var(--card2);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#b9c7d3}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input,select{font:inherit}
+.app{height:100%;display:flex;flex-direction:column;max-width:480px;margin:0 auto}
+header{display:grid;grid-template-columns:48px 1fr 48px;align-items:center;padding:14px 8px 10px;min-height:58px}
+header h2{text-align:center;color:var(--muted);font-size:18px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px}
+.tag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);border:1px solid #5a462070;border-radius:99px;padding:2px 7px;font-weight:600}
+.back{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--text)}
+.back:active{background:var(--card)}
+.back[hidden]{display:none}
+main{flex:1;overflow-y:auto;padding:4px 16px 24px;-webkit-overflow-scrolling:touch}
+.view{animation:in .18s ease-out}
+@keyframes in{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.view{animation:none}}
+
+.total{display:flex;align-items:center;gap:12px;margin-top:6px}
+.total h1{font-size:32px;font-weight:700;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+.eye{color:var(--muted);display:flex;padding:4px}
+.sub{color:var(--muted);font-size:15px;margin:6px 0 18px;display:flex;align-items:center;gap:4px}
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px}
+.quick button{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.quick .qi{width:52px;height:52px;border-radius:16px;background:var(--blue-soft);color:var(--link);display:flex;align-items:center;justify-content:center}
+.quick button:active .qi{background:#163452}
+
+.sec{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);margin:20px 0 10px;font-weight:600}
+.card{background:var(--card);border:1px solid var(--line2);border-radius:14px;padding:14px;margin-bottom:10px}
+.acc{display:block;width:100%;text-align:left}
+.acc:active{background:var(--card2)}
+.row{display:flex;gap:14px;align-items:center}
+.ico{width:46px;height:46px;border-radius:12px;background:var(--card2);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#b9c7d3}
 .info{flex:1;min-width:0}
 .top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
-.name{font-size:17px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.amt{font-size:17px;font-weight:600;white-space:nowrap}
-.amt.neg{color:var(--red)}
-.iban{color:var(--muted);font-size:14px;margin-top:4px;font-variant-numeric:tabular-nums}
-.meta{display:flex;justify-content:space-between;font-size:13px;margin-top:6px;color:var(--muted)}
-.up{color:var(--green)}
-.btns{display:flex;gap:8px;margin-top:14px}
-.btn{border:0;border-radius:8px;padding:10px 16px;font-size:15px;cursor:pointer;font-weight:500}
+.name{font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.amt{font-size:16px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+.neg{color:var(--red)} .pos{color:var(--green)}
+.small{color:var(--muted);font-size:13px;margin-top:3px;font-variant-numeric:tabular-nums}
+.btns{display:flex;gap:8px;margin-top:12px}
+.btn{border-radius:9px;padding:10px 16px;font-size:15px;font-weight:500}
 .btn.primary{background:var(--blue);color:#fff}
-.btn.sec{background:var(--blue-soft);color:var(--link)}
-.bar{height:6px;border-radius:99px;background:var(--card2);margin-top:10px;overflow:hidden}
-.bar span{display:block;height:100%;background:var(--link)}
-.pers{display:block;margin:10px auto 0;background:var(--blue-soft);color:var(--link);border:0;border-radius:8px;padding:14px 32px;font-size:18px;cursor:pointer}
-nav{position:fixed;bottom:0;width:100%;max-width:430px;background:var(--bg);border-top:1px solid #16222d;display:flex;justify-content:space-around;padding:10px 0 16px}
-nav a{display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--muted);text-decoration:none;font-size:13px}
-nav a .pill{padding:6px 18px;border-radius:99px;display:flex}
-nav a.active{color:var(--link)}
-nav a.active .pill{background:#13212e}
-.hidden .money{filter:blur(7px);user-select:none}
+.btn.sec2{background:var(--blue-soft);color:var(--link)}
+.btn.wide{width:100%;padding:14px}
+.btn:active{filter:brightness(1.15)}
+.bar{height:6px;border-radius:99px;background:var(--card2);margin-top:8px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--link);border-radius:99px}
+
+.hero{background:linear-gradient(160deg,#122538,#0f1c28);border:1px solid var(--line2);border-radius:18px;padding:18px;margin-bottom:14px}
+.hero .lbl{color:var(--muted);font-size:13px}
+.hero .big{font-size:30px;font-weight:700;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.copy{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:13px;margin-top:6px}
+.copy svg{color:var(--link)}
+.search{width:100%;background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:12px 14px;color:var(--text);margin-bottom:6px}
+.search::placeholder{color:var(--dim)}
+.day{font-size:13px;color:var(--dim);margin:16px 0 6px;font-weight:600}
+.tx{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #1a2733}
+.tx:last-child{border-bottom:0}
+.tx .ti{width:38px;height:38px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#c3d0da;flex-shrink:0}
+.tx .tn{flex:1;min-width:0}
+.tx .tn b{display:block;font-weight:500;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx .tn span{font-size:12px;color:var(--muted)}
+.empty{color:var(--muted);text-align:center;padding:28px 0}
+
+.chart{width:100%;height:150px;display:block;margin-top:10px}
+.ranges{display:flex;gap:6px;margin-top:8px}
+.ranges button{flex:1;padding:6px 0;border-radius:8px;font-size:13px;color:var(--muted)}
+.ranges button.on{background:var(--blue-soft);color:var(--link)}
+
+.bcard{aspect-ratio:1.586;max-width:100%;border-radius:16px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(135deg,#1b4f86,#0b2742 60%,#081a2c);border:1px solid #2b5c8f;position:relative;overflow:hidden;margin-bottom:14px;transition:filter .2s}
+.bcard.locked{filter:grayscale(1) brightness(.6)}
+.bcard .bn{font-weight:700;letter-spacing:.04em}
+.bcard .num{font-size:19px;letter-spacing:.12em;font-variant-numeric:tabular-nums}
+.bcard .chip{width:40px;height:30px;border-radius:6px;background:linear-gradient(135deg,#d9c07a,#a8873e)}
+.bcard .foot{display:flex;justify-content:space-between;font-size:12px;color:#b9cde0}
+.cards-scroll{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px}
+.cards-scroll .bcard{flex:0 0 88%;scroll-snap-align:center}
+.bcard.credit{background:linear-gradient(135deg,#3a3f47,#1d2127 60%,#121519);border-color:#4a5059}
+
+.list{background:var(--card);border:1px solid var(--line2);border-radius:14px;overflow:hidden}
+.li{display:flex;align-items:center;gap:12px;padding:14px;border-bottom:1px solid #1c2a36;width:100%;text-align:left}
+.li:last-child{border-bottom:0}
+.li:active{background:var(--card2)}
+.li .lt{flex:1;min-width:0}
+.li .lt b{display:block;font-weight:500}
+.li .lt span{font-size:13px;color:var(--muted)}
+.chev{color:var(--dim)}
+.switch{width:46px;height:28px;border-radius:99px;background:#2a3a48;position:relative;flex-shrink:0;transition:background .2s}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .2s}
+.switch.on{background:var(--blue)}
+.switch.on::after{left:21px}
+
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.field label{font-size:13px;color:var(--muted)}
+.field input,.field select{background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:13px 14px;color:var(--text);width:100%}
+.field input:focus,.field select:focus{outline:2px solid var(--link);outline-offset:-1px}
+.err{color:var(--red);font-size:13px;min-height:18px}
+.ok{text-align:center;padding:30px 0}
+.ok .circle{width:76px;height:76px;border-radius:50%;background:#123526;color:var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.ok h3{font-size:22px;margin-bottom:6px}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.prod{background:var(--card);border:1px solid var(--line2);border-radius:14px;padding:14px;text-align:left;display:flex;flex-direction:column;gap:8px}
+.prod b{font-weight:600}
+.prod span{font-size:13px;color:var(--muted)}
+.avatar{width:72px;height:72px;border-radius:50%;background:var(--blue-soft);color:var(--link);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;margin:6px auto 10px}
+.center{text-align:center}
+.legal p{color:#c3ced8;line-height:1.55;margin-bottom:12px;font-size:15px}
+.legal h3{font-size:16px;margin:18px 0 8px}
+.pos-row{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid #1c2a36}
+.pos-row:last-child{border-bottom:0}
+.pos-row .m{white-space:nowrap}
+
+nav{display:flex;justify-content:space-around;padding:8px 0 calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid #16222d;background:var(--bg)}
+nav button{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--muted);font-size:12px;flex:1}
+nav .pill{padding:5px 18px;border-radius:99px;display:flex;transition:background .2s}
+nav button.active{color:var(--link)}
+nav button.active .pill{background:#13212e}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:#22313e;color:var(--text);padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;transition:.25s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%)}
+.hide-money .m{filter:blur(8px);user-select:none}
 </style>
 </head>
 <body>
 <div class="app" id="app">
-  <div class="demo">Konzept · Demo-Daten</div>
-  <header>Home</header>
-  <div class="main">
-    <div class="total">
-      <h1 class="money" id="total"></h1>
-      <button class="eye" id="eye" aria-label="Kontostände ein-/ausblenden">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
-      </button>
-    </div>
-    <div class="sub" id="sub"></div>
-    <div id="list"></div>
-    <button class="pers">Personalisieren</button>
-  </div>
-  <nav>
-    <a href="#" class="active"><span class="pill"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M9 16h6"/></svg></span>Home</a>
-    <a href="#"><span class="pill"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></span>Karten</a>
-    <a href="#"><span class="pill"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15V3m-4 4 4-4 4 4"/><path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/></svg></span>Aufträge</a>
-    <a href="#"><span class="pill"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="6" height="6" rx="1.5"/><circle cx="17" cy="7" r="3"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></svg></span>Produkte</a>
-    <a href="#"><span class="pill"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span>Profil</a>
-  </nav>
+  <header>
+    <div><button class="back" id="backBtn" hidden aria-label="Zurück"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button></div>
+    <h2><span id="title">Home</span><span class="tag">Konzept</span></h2>
+    <div></div>
+  </header>
+  <main id="main"></main>
+  <nav id="nav"></nav>
 </div>
+<div class="toast" id="toast"></div>
 <script>
-const I = {
-  bank:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9 12 4l9 5H3z"/><path d="M5 10v7M9 10v7M15 10v7M19 10v7M3 20h18"/></svg>',
-  chart:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 20h18"/><path d="m4 15 5-5 4 3 7-7"/><path d="M15 6h5v5"/></svg>',
-  pig:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 11a7 6 0 0 1 12-2h2v3l-1 1v3h-2l-1 3h-2v-2h-3v2H7l-1-3a5 5 0 0 1-1-5z"/><circle cx="15" cy="11" r=".6" fill="currentColor"/></svg>',
-  safe:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="15" rx="2"/><circle cx="12" cy="11.5" r="3.5"/><path d="M12 8v1M12 14v1M7 19v2M17 19v2"/></svg>',
-  card:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg>'
+/* ---------- Fiktive Demo-Daten (keine echten Konten) ---------- */
+const ICON = {
+  bank:'<path d="M3 9 12 4l9 5H3z"/><path d="M5 10v7M9 10v7M15 10v7M19 10v7M3 20h18"/>',
+  chart:'<path d="M3 20h18"/><path d="m4 15 5-5 4 3 7-7"/><path d="M15 6h5v5"/>',
+  pig:'<path d="M5 11a7 6 0 0 1 12-2h2v3l-1 1v3h-2l-1 3h-2v-2h-3v2H7l-1-3a5 5 0 0 1-1-5z"/>',
+  safe:'<rect x="3" y="4" width="18" height="15" rx="2"/><circle cx="12" cy="11.5" r="3.5"/>',
+  card:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/>',
+  home:'<path d="M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M9 16h6"/>',
+  send:'<path d="M12 15V3m-4 4 4-4 4 4"/><path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/>',
+  apps:'<rect x="4" y="4" width="6" height="6" rx="1.5"/><circle cx="17" cy="7" r="3"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+  eye:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  eyeoff:'<path d="M3 3l18 18"/><path d="M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.6 6.6C3.7 8.5 2 12 2 12s3.6 7 10 7a9.7 9.7 0 0 0 5.4-1.6"/>',
+  chev:'<path d="M9 5l7 7-7 7"/>',
+  copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/>',
+  repeat:'<path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/>',
+  swap:'<path d="M7 4v16M3 8l4-4 4 4M17 20V4M13 16l4 4 4-4"/>',
+  qr:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 14v7M14 20h3"/>',
+  lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+  bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/>',
+  shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>',
+  doc:'<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/>',
+  check:'<path d="M5 12l5 5 9-10"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+  info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>'
 };
-// Fiktive Demo-Konten – IBANs sind maskiert/erfunden
+const svg = (n,s=24,w=1.8) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round">${ICON[n]}</svg>`;
+
+const today = new Date();
+const d = (back) => { const x = new Date(today); x.setDate(x.getDate()-back); return x; };
+
 const accounts = [
-  {name:'Girokonto', iban:'DE•• •••• •••• •••• 4471 08', bal:5384.27, icon:'bank', btns:true},
-  {name:'Depot / Trading', iban:'Depot-Nr. ••• 9025 13', bal:68412.90, icon:'chart', meta:['Heute','+412,35 € (+0,61 %)']},
-  {name:'Tagesgeld', iban:'DE•• •••• •••• •••• 4471 16', bal:32150.00, icon:'pig', meta:['Zinssatz','2,75 % p.a.']},
-  {name:'Sparkonto Urlaub', iban:'DE•• •••• •••• •••• 4471 24', bal:4800.00, icon:'safe', goal:6000},
-  {name:'Kreditkarte', iban:'•••• •••• •••• 7319', bal:-1236.48, icon:'card', meta:['Abrechnung','am 01.12.']}
+  {id:'giro', name:'Girokonto', icon:'bank', iban:'DE00 1000 0000 0012 4471 08', bal:5384.27, main:true, tx:[
+    ['Lohn / Gehalt · Muster Engineering GmbH', 4980.00, 1, 'Gehalt'],
+    ['Supermarkt am Markt', -86.42, 0, 'Lebensmittel'],
+    ['Bäckerei Sonnenkorn', -7.80, 0, 'Lebensmittel'],
+    ['Tankstelle Nordring', -74.15, 2, 'Mobilität'],
+    ['Miete Wohnung · Hausverwaltung Kern', -1480.00, 3, 'Wohnen'],
+    ['Stadtwerke Strom/Gas', -142.00, 3, 'Wohnen'],
+    ['Streamingdienst Abo', -13.99, 4, 'Freizeit'],
+    ['Übertrag auf Tagesgeld', -800.00, 4, 'Sparen'],
+    ['Sparplan Depot', -600.00, 5, 'Sparen'],
+    ['Restaurant Lindenhof', -64.50, 6, 'Essen'],
+    ['Fitnessstudio Monatsbeitrag', -39.90, 7, 'Freizeit'],
+    ['Rückerstattung Online-Shop', 59.95, 8, 'Shopping'],
+    ['Versicherung Kfz', -71.38, 9, 'Versicherung'],
+    ['Drogerie City', -23.67, 10, 'Haushalt'],
+  ]},
+  {id:'depot', name:'Depot', icon:'chart', iban:'Depot-Nr. 0000 9025 13', bal:68412.90, depot:true, change:412.35},
+  {id:'tg', name:'Tagesgeld', icon:'pig', iban:'DE00 1000 0000 0012 4471 16', bal:32150.00, rate:'2,75 % p.a.', tx:[
+    ['Zinsgutschrift', 71.32, 1, 'Zinsen'],
+    ['Übertrag vom Girokonto', 800.00, 4, 'Sparen'],
+    ['Übertrag vom Girokonto', 800.00, 34, 'Sparen'],
+  ]},
+  {id:'spar', name:'Sparkonto Urlaub', icon:'safe', iban:'DE00 1000 0000 0012 4471 24', bal:4800.00, goal:6000, tx:[
+    ['Monatliche Sparrate', 300.00, 5, 'Sparen'],
+    ['Monatliche Sparrate', 300.00, 35, 'Sparen'],
+  ]},
+  {id:'kk', name:'Kreditkarte', icon:'card', iban:'•••• •••• •••• 7319', bal:-1236.48, credit:true, limit:5000, tx:[
+    ['Hotel Seeblick · Buchung', -612.00, 2, 'Reisen'],
+    ['Online-Elektronikhandel', -349.00, 5, 'Shopping'],
+    ['Flug Inland', -189.48, 9, 'Reisen'],
+    ['Parkhaus Zentrum', -18.00, 11, 'Mobilität'],
+    ['Buchhandlung Seitenweise', -68.00, 12, 'Freizeit'],
+  ]},
 ];
-const fmt = n => n.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
-const total = accounts.reduce((s,a)=>s+a.bal,0);
-document.getElementById('total').textContent = fmt(total);
-document.getElementById('sub').textContent = `Gesamter Kontostand (${accounts.length}/${accounts.length}) >`;
-document.getElementById('list').innerHTML = accounts.map(a=>`
-  <div class="card"><div class="row">
-    <div class="ico">${I[a.icon]}</div>
-    <div class="info">
-      <div class="top"><span class="name">${a.name}</span><span class="amt money ${a.bal<0?'neg':''}">${fmt(a.bal)}</span></div>
-      <div class="iban">${a.iban}</div>
-      ${a.meta?`<div class="meta"><span>${a.meta[0]}</span><span class="${a.meta[1].startsWith('+')?'up':''}">${a.meta[1]}</span></div>`:''}
-      ${a.goal?`<div class="meta"><span>Sparziel ${fmt(a.goal)}</span><span>${Math.round(a.bal/a.goal*100)} %</span></div><div class="bar"><span style="width:${Math.min(100,a.bal/a.goal*100)}%"></span></div>`:''}
-    </div></div>
-    ${a.btns?'<div class="btns"><button class="btn primary">Überweisung</button><button class="btn sec">Mehr</button></div>':''}
-  </div>`).join('');
-document.getElementById('eye').onclick = () => document.getElementById('app').classList.toggle('hidden');
+accounts.forEach(a => a.tx && (a.tx = a.tx.map(([n,v,b,c]) => ({n,v,date:d(b),c}))));
+
+const positions = [
+  ['MSCI World ETF (thesaurierend)', 31240.55, 8.9],
+  ['Emerging Markets ETF', 9820.10, 3.4],
+  ['Europe 600 ETF', 11150.75, 5.1],
+  ['Tech Aktien Einzeltitel', 10301.50, 14.2],
+  ['Anleihen-ETF Euro', 5900.00, 1.2],
+];
+const orders = [
+  {to:'Hausverwaltung Kern', v:1480, when:'monatlich, zum 1.', from:'Girokonto'},
+  {to:'Sparkonto Urlaub', v:300, when:'monatlich, zum 15.', from:'Girokonto'},
+  {to:'Sparplan Depot', v:600, when:'monatlich, zum 20.', from:'Girokonto'},
+];
+
+/* ---------- State ---------- */
+let hidden = false, tab = 'home', stack = [], cardLocked = {deb:false, cred:false};
+const S = { get:k=>{try{return localStorage.getItem(k)}catch(e){return null}}, set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}} };
+hidden = S.get('hide') === '1';
+
+const fmt = n => n.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' €';
+const signed = n => (n>0?'+':'') + fmt(n);
+const total = () => accounts.reduce((s,a)=>s+a.bal,0);
+const dayLabel = dt => {
+  const diff = Math.round((new Date(today.toDateString()) - new Date(dt.toDateString()))/864e5);
+  if (diff===0) return 'Heute'; if (diff===1) return 'Gestern';
+  return dt.toLocaleDateString('de-DE',{weekday:'long', day:'2-digit', month:'long'});
+};
+const initials = n => n.replace(/[^A-Za-zÄÖÜäöü ]/g,'').split(' ').filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+const $ = id => document.getElementById(id);
+const toast = msg => { const t=$('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),1800); };
+
+/* ---------- Navigation ---------- */
+const TABS = [['home','Home','home'],['cards','Karten','card'],['orders','Aufträge','send'],['products','Produkte','apps'],['profile','Profil','user']];
+function renderNav(){
+  $('nav').innerHTML = TABS.map(([id,l,i]) => `<button class="${tab===id?'active':''}" onclick="go('${id}')"><span class="pill">${svg(i,26)}</span>${l}</button>`).join('');
+}
+function go(t){ tab=t; stack=[]; render(); }
+function push(view, arg){ stack.push([view,arg]); render(); }
+function appBack(){ if(stack.length){ stack.pop(); render(); return true; } if(tab!=='home'){ go('home'); return true; } return false; }
+window.appBack = appBack;
+$('backBtn').onclick = appBack;
+
+function render(){
+  document.getElementById('app').classList.toggle('hide-money', hidden);
+  const top = stack[stack.length-1];
+  let title, html;
+  if (top) [title, html] = VIEWS[top[0]](top[1]);
+  else [title, html] = VIEWS[tab]();
+  $('title').textContent = title;
+  $('backBtn').hidden = !stack.length;
+  $('main').innerHTML = `<div class="view">${html}</div>`;
+  $('main').scrollTop = 0;
+  renderNav();
+  if (top && top[0]==='depot') drawChart('1J');
+}
+
+/* ---------- Views ---------- */
+const accCard = a => `
+  <button class="card acc" onclick="push('${a.depot?'depot':'account'}','${a.id}')">
+    <div class="row">
+      <div class="ico">${svg(a.icon,24,1.6)}</div>
+      <div class="info">
+        <div class="top"><span class="name">${a.name}</span><span class="amt m ${a.bal<0?'neg':''}">${fmt(a.bal)}</span></div>
+        <div class="small">${a.iban}</div>
+        ${a.depot?`<div class="small">Heute <span class="pos m">${signed(a.change)} (+0,61 %)</span></div>`:''}
+        ${a.rate?`<div class="small">Zinssatz ${a.rate}</div>`:''}
+        ${a.goal?`<div class="small">Sparziel ${fmt(a.goal)} · ${Math.round(a.bal/a.goal*100)} %</div><div class="bar"><span style="width:${Math.min(100,a.bal/a.goal*100)}%"></span></div>`:''}
+        ${a.credit?`<div class="small">Verfügbar <span class="m">${fmt(a.limit+a.bal)}</span> von ${fmt(a.limit)}</div>`:''}
+      </div>
+    </div>
+    ${a.main?`<div class="btns"><span class="btn primary" onclick="event.stopPropagation();push('transfer')">Überweisung</span><span class="btn sec2" onclick="event.stopPropagation();push('account','giro')">Umsätze</span></div>`:''}
+  </button>`;
+
+const VIEWS = {
+  home(){
+    return ['Home', `
+      <div class="total"><h1 class="m">${fmt(total())}</h1>
+        <button class="eye" onclick="toggleHide()" aria-label="Beträge ein- oder ausblenden">${svg(hidden?'eyeoff':'eye',28)}</button></div>
+      <div class="sub">Gesamter Kontostand (${accounts.length}/${accounts.length}) ${svg('chev',16)}</div>
+      <div class="quick">
+        <button onclick="push('transfer')"><span class="qi">${svg('send')}</span>Senden</button>
+        <button onclick="push('internal')"><span class="qi">${svg('swap')}</span>Umbuchen</button>
+        <button onclick="go('orders')"><span class="qi">${svg('repeat')}</span>Daueraufträge</button>
+        <button onclick="toast('Fotoüberweisung: Kamera nicht verfügbar')"><span class="qi">${svg('qr')}</span>Scannen</button>
+      </div>
+      ${accounts.map(accCard).join('')}
+      <div class="sec">Letzte Umsätze</div>
+      <div class="card">${txList(accounts[0].tx.slice(0,4))}</div>
+      <button class="btn sec2 wide" onclick="push('account','giro')">Alle Umsätze anzeigen</button>
+    `];
+  },
+  account(id){
+    const a = accounts.find(x=>x.id===id);
+    const ins = a.tx.filter(t=>t.v>0).reduce((s,t)=>s+t.v,0), outs = a.tx.filter(t=>t.v<0).reduce((s,t)=>s+t.v,0);
+    return [a.name, `
+      <div class="hero">
+        <div class="lbl">Kontostand</div>
+        <div class="big m ${a.bal<0?'neg':''}">${fmt(a.bal)}</div>
+        <button class="copy" onclick="copyIban('${a.iban}')">${a.iban} ${svg('copy',16)}</button>
+        <div class="row" style="margin-top:14px;gap:24px">
+          <div><div class="lbl">Eingänge (30 T.)</div><div class="pos m">${signed(ins)}</div></div>
+          <div><div class="lbl">Ausgänge (30 T.)</div><div class="neg m">${fmt(outs)}</div></div>
+        </div>
+      </div>
+      ${a.main?`<div class="btns" style="margin:0 0 14px"><button class="btn primary" onclick="push('transfer')">Überweisung</button><button class="btn sec2" onclick="push('internal')">Umbuchen</button></div>`:''}
+      <input class="search" id="q" placeholder="Umsätze durchsuchen" oninput="filterTx('${a.id}')">
+      <div id="txs">${groupTx(a.tx)}</div>`];
+  },
+  depot(){
+    const a = accounts.find(x=>x.depot);
+    return ['Depot', `
+      <div class="hero">
+        <div class="lbl">Depotwert</div>
+        <div class="big m">${fmt(a.bal)}</div>
+        <div class="pos m">${signed(a.change)} heute · +9.214,60 € seit Kauf</div>
+        <svg class="chart" id="chart" viewBox="0 0 320 150" preserveAspectRatio="none"></svg>
+        <div class="ranges">${['1T','1W','1M','1J','Max'].map(r=>`<button data-r="${r}" onclick="drawChart('${r}')">${r}</button>`).join('')}</div>
+      </div>
+      <div class="btns" style="margin:0 0 14px"><button class="btn primary" onclick="toast('Handel ist im Konzept deaktiviert')">Kaufen</button><button class="btn sec2" onclick="toast('Handel ist im Konzept deaktiviert')">Verkaufen</button></div>
+      <div class="sec">Positionen</div>
+      <div class="card">${positions.map(([n,v,p])=>`<div class="pos-row"><div style="min-width:0"><b style="font-weight:500">${n}</b><div class="small">${(v/a.bal*100).toFixed(1).replace('.',',')} % Anteil</div></div><div style="text-align:right"><div class="m">${fmt(v)}</div><div class="small pos">+${p.toFixed(1).replace('.',',')} %</div></div></div>`).join('')}</div>`];
+  },
+  cards(){
+    return ['Karten', `
+      <div class="cards-scroll">
+        ${bankCard('deb','Debitkarte','4471')}
+        ${bankCard('cred','Kreditkarte','7319', true)}
+      </div>
+      <div class="list">
+        ${toggleRow('deb','Debitkarte sperren','Vorübergehend, jederzeit wieder entsperrbar')}
+        ${toggleRow('cred','Kreditkarte sperren','Vorübergehend, jederzeit wieder entsperrbar')}
+        <button class="li" onclick="toast('Limit: 2.000 € pro Tag')">${svg('shield')}<div class="lt"><b>Limits</b><span>Auszahlung und Zahlung</span></div><span class="chev">${svg('chev',18)}</span></button>
+        <button class="li" onclick="toast('Apple Pay / Google Pay verbunden')">${svg('globe')}<div class="lt"><b>Mobil bezahlen</b><span>Wallet verbunden</span></div><span class="chev">${svg('chev',18)}</span></button>
+        <button class="li" onclick="toast('PIN wird im Konzept nicht angezeigt')">${svg('lock')}<div class="lt"><b>PIN anzeigen</b><span>Mit Freigabe</span></div><span class="chev">${svg('chev',18)}</span></button>
+      </div>`];
+  },
+  orders(){
+    return ['Aufträge', `
+      <div class="btns" style="margin:0 0 6px"><button class="btn primary" style="flex:1" onclick="push('transfer')">Neue Überweisung</button><button class="btn sec2" style="flex:1" onclick="push('internal')">Umbuchen</button></div>
+      <div class="sec">Daueraufträge</div>
+      <div class="list">${orders.map(o=>`<div class="li">${svg('repeat')}<div class="lt"><b>${o.to}</b><span>${o.when} · von ${o.from}</span></div><span class="m">${fmt(o.v)}</span></div>`).join('')}</div>
+      <div class="sec">Vorgemerkt</div>
+      <div class="list"><div class="li">${svg('send')}<div class="lt"><b>Handwerker Fischer</b><span>Ausführung am ${d(-3).toLocaleDateString('de-DE')}</span></div><span class="m">${fmt(420)}</span></div></div>`];
+  },
+  products(){
+    const p = [['Gemeinschaftskonto','Gemeinsam verwalten'],['Festgeld','3,1 % für 12 Monate'],['Ratenkredit','ab 5,49 % eff. p.a.'],['Baufinanzierung','Zinsen vergleichen'],['Kinderdepot','Früh vorsorgen'],['Versicherungen','Hausrat, Haftpflicht']];
+    return ['Produkte', `<div class="grid">${p.map(([b,s])=>`<button class="prod" onclick="toast('${b}: Infos folgen')"><span style="color:var(--link)">${svg('apps',22)}</span><b>${b}</b><span>${s}</span></button>`).join('')}</div>`];
+  },
+  profile(){
+    return ['Profil', `
+      <div class="avatar">MM</div>
+      <div class="center" style="margin-bottom:18px"><b style="font-size:18px">Max Mustermann</b><div class="small">Kunde seit 2014</div></div>
+      <div class="list">
+        <button class="li" onclick="toast('Persönliche Daten')">${svg('user')}<div class="lt"><b>Persönliche Daten</b><span>Adresse, Telefon, E-Mail</span></div><span class="chev">${svg('chev',18)}</span></button>
+        <button class="li" onclick="toggleNotif(this)">${svg('bell')}<div class="lt"><b>Mitteilungen</b><span>Bei jedem Umsatz</span></div><span class="switch on"></span></button>
+        <button class="li" onclick="toast('Freigabe per Fingerabdruck aktiv')">${svg('shield')}<div class="lt"><b>Sicherheit</b><span>Biometrie, Geräte</span></div><span class="chev">${svg('chev',18)}</span></button>
+        <button class="li" onclick="toast('Postfach: 2 Dokumente')">${svg('doc')}<div class="lt"><b>Postfach</b><span>Kontoauszüge, Verträge</span></div><span class="chev">${svg('chev',18)}</span></button>
+      </div>
+      <div class="sec">Rechtliches</div>
+      <div class="list">
+        <button class="li" onclick="push('legal','impressum')">${svg('info')}<div class="lt"><b>Impressum</b></div><span class="chev">${svg('chev',18)}</span></button>
+        <button class="li" onclick="push('legal','datenschutz')">${svg('doc')}<div class="lt"><b>Datenschutz</b></div><span class="chev">${svg('chev',18)}</span></button>
+      </div>
+      <p class="small center" style="margin-top:18px">Konzept-App · Version 1.1 · Alle Daten sind fiktiv</p>`];
+  },
+  legal(which){
+    if (which==='impressum') return ['Impressum', `<div class="legal">
+      <h3>Hinweis zum Konzept</h3>
+      <p>Diese App ist ein Design-Konzept und kein Produkt einer echten Bank. Sie ist mit keinem Kreditinstitut verbunden und führt keine echten Bankgeschäfte aus.</p>
+      <p>Alle angezeigten Namen, Kontonummern, Kontostände, Umsätze und Depotwerte sind frei erfunden und dienen nur zur Veranschaulichung. Sie sind kein Nachweis über Vermögen oder Zahlungen.</p>
+      <h3>Verantwortlich</h3>
+      <p>Privates Konzeptprojekt, nicht kommerziell.</p></div>`];
+    return ['Datenschutz', `<div class="legal">
+      <h3>Welche Daten verarbeitet werden</h3>
+      <p>Die App arbeitet vollständig offline mit fest eingebauten Beispieldaten. Es werden keine persönlichen Daten erhoben, gespeichert oder übertragen.</p>
+      <p>Gespeichert wird nur lokal auf dem Gerät, ob Beträge ausgeblendet sind.</p>
+      <h3>Hinweis</h3>
+      <p>Alle Inhalte sind fiktiv. Überweisungen in dieser App werden nicht ausgeführt.</p></div>`];
+  },
+  transfer(){
+    return ['Überweisung', `
+      <form id="tf" onsubmit="return sendTransfer(event)">
+        <div class="field"><label for="t-from">Von</label><select id="t-from"><option>Girokonto · ${fmt(accounts[0].bal)}</option></select></div>
+        <div class="field"><label for="t-name">Empfänger</label><input id="t-name" placeholder="Name" autocomplete="off"></div>
+        <div class="field"><label for="t-iban">IBAN</label><input id="t-iban" placeholder="DE.." autocomplete="off"></div>
+        <div class="field"><label for="t-amt">Betrag in €</label><input id="t-amt" inputmode="decimal" placeholder="0,00"></div>
+        <div class="field"><label for="t-ref">Verwendungszweck</label><input id="t-ref" placeholder="optional" autocomplete="off"></div>
+        <label class="li" style="padding:6px 0 14px;border:0"><input type="checkbox" id="t-instant" style="width:20px;height:20px;accent-color:var(--blue)"><div class="lt"><b>Echtzeitüberweisung</b><span>In Sekunden beim Empfänger</span></div></label>
+        <div class="err" id="t-err"></div>
+        <button class="btn primary wide" type="submit">Weiter</button>
+      </form>`];
+  },
+  internal(){
+    const opts = accounts.filter(a=>!a.depot && !a.credit).map(a=>`<option value="${a.id}">${a.name}</option>`).join('');
+    return ['Umbuchen', `
+      <form onsubmit="return sendInternal(event)">
+        <div class="field"><label for="i-from">Von</label><select id="i-from">${opts}</select></div>
+        <div class="field"><label for="i-to">Nach</label><select id="i-to">${opts.replace('value="tg"','value="tg" selected')}</select></div>
+        <div class="field"><label for="i-amt">Betrag in €</label><input id="i-amt" inputmode="decimal" placeholder="0,00"></div>
+        <div class="err" id="i-err"></div>
+        <button class="btn primary wide" type="submit">Umbuchen</button>
+      </form>`];
+  },
+  done(info){
+    return ['Erledigt', `<div class="ok"><div class="circle">${svg('check',40,2.4)}</div>
+      <h3>${info.title}</h3><p class="small">${info.text}</p>
+      <p class="small" style="margin-top:10px;color:var(--amber)">Konzept: Es wurde kein Geld bewegt.</p></div>
+      <button class="btn sec2 wide" onclick="go('home')">Zur Übersicht</button>`];
+  }
+};
+
+/* ---------- Helpers ---------- */
+function txList(list){
+  if(!list.length) return '<div class="empty">Keine Umsätze gefunden</div>';
+  return list.map(t=>`<div class="tx"><div class="ti">${initials(t.n)}</div><div class="tn"><b>${t.n}</b><span>${t.c}</span></div><div class="amt m ${t.v>0?'pos':''}">${signed(t.v)}</div></div>`).join('');
+}
+function groupTx(list){
+  if(!list.length) return '<div class="empty">Keine Umsätze gefunden</div>';
+  const g = {}; list.slice().sort((a,b)=>b.date-a.date).forEach(t=>{const k=dayLabel(t.date);(g[k]=g[k]||[]).push(t)});
+  return Object.entries(g).map(([k,v])=>`<div class="day">${k}</div><div class="card" style="padding:4px 14px">${txList(v)}</div>`).join('');
+}
+function filterTx(id){
+  const q = $('q').value.trim().toLowerCase(), a = accounts.find(x=>x.id===id);
+  $('txs').innerHTML = groupTx(a.tx.filter(t=>(t.n+' '+t.c).toLowerCase().includes(q)));
+  document.getElementById('app').classList.toggle('hide-money', hidden);
+}
+function toggleHide(){ hidden=!hidden; S.set('hide', hidden?'1':'0'); render(); }
+function copyIban(i){
+  const done=()=>toast('IBAN kopiert');
+  try{ navigator.clipboard.writeText(i.replace(/\s/g,'')).then(done,done);}catch(e){done();}
+}
+function bankCard(id,label,last,credit){
+  return `<div class="bcard ${credit?'credit':''} ${cardLocked[id]?'locked':''}" id="bc-${id}">
+    <div class="top"><span class="bn">KONZEPT BANK</span><span class="small" style="color:#cfe0f0">${label}</span></div>
+    <div class="chip"></div>
+    <div class="num">•••• •••• •••• ${last}</div>
+    <div class="foot"><span>MAX MUSTERMANN</span><span>${cardLocked[id]?'GESPERRT':'09/29'}</span></div></div>`;
+}
+function toggleRow(id,t,s){
+  return `<button class="li" onclick="lockCard('${id}')">${svg('lock')}<div class="lt"><b>${t}</b><span>${s}</span></div><span class="switch ${cardLocked[id]?'on':''}" id="sw-${id}"></span></button>`;
+}
+function lockCard(id){
+  cardLocked[id]=!cardLocked[id];
+  $('sw-'+id).classList.toggle('on',cardLocked[id]);
+  $('bc-'+id).classList.toggle('locked',cardLocked[id]);
+  toast(cardLocked[id]?'Karte gesperrt':'Karte entsperrt');
+}
+function toggleNotif(el){ const s=el.querySelector('.switch'); s.classList.toggle('on'); toast(s.classList.contains('on')?'Mitteilungen an':'Mitteilungen aus'); }
+const parseAmt = s => { const n = parseFloat(String(s).replace(/\./g,'').replace(',','.')); return isFinite(n)?n:NaN; };
+function sendTransfer(e){
+  e.preventDefault();
+  const name=$('t-name').value.trim(), iban=$('t-iban').value.replace(/\s/g,'').toUpperCase(), v=parseAmt($('t-amt').value);
+  let err='';
+  if(!name) err='Bitte einen Empfänger angeben.';
+  else if(!/^[A-Z]{2}\d{2}[A-Z0-9]{10,30}$/.test(iban)) err='Die IBAN ist unvollständig. Sie beginnt mit Ländercode und Prüfziffer, z. B. DE12…';
+  else if(!(v>0)) err='Bitte einen Betrag größer als 0 eingeben.';
+  else if(v>accounts[0].bal) err='Der Betrag übersteigt den verfügbaren Kontostand.';
+  $('t-err').textContent=err;
+  if(err) return false;
+  stack.pop(); push('done',{title:fmt(v)+' an '+name.replace(/[<>]/g,''), text:$('t-instant').checked?'Echtzeitüberweisung freigegeben':'Überweisung für heute vorgemerkt'});
+  return false;
+}
+function sendInternal(e){
+  e.preventDefault();
+  const f=$('i-from').value, t=$('i-to').value, v=parseAmt($('i-amt').value);
+  const A=accounts.find(a=>a.id===f), B=accounts.find(a=>a.id===t);
+  let err='';
+  if(f===t) err='Bitte zwei verschiedene Konten wählen.';
+  else if(!(v>0)) err='Bitte einen Betrag größer als 0 eingeben.';
+  else if(v>A.bal) err='Nicht genug Guthaben auf '+A.name+'.';
+  $('i-err').textContent=err;
+  if(err) return false;
+  A.bal-=v; B.bal+=v;
+  A.tx.unshift({n:'Übertrag auf '+B.name, v:-v, date:new Date(), c:'Umbuchung'});
+  B.tx.unshift({n:'Übertrag von '+A.name, v:v, date:new Date(), c:'Umbuchung'});
+  stack.pop(); push('done',{title:fmt(v)+' umgebucht', text:A.name+' → '+B.name+' (nur in dieser Sitzung)'});
+  return false;
+}
+function drawChart(range){
+  const el=$('chart'); if(!el) return;
+  document.querySelectorAll('.ranges button').forEach(b=>b.classList.toggle('on',b.dataset.r===range));
+  const n={'1T':30,'1W':40,'1M':45,'1J':60,'Max':80}[range];
+  const drift={'1T':.4,'1W':.8,'1M':1.5,'1J':4,'Max':8}[range];
+  let seed=range.length*97+n, y=50, pts=[];
+  const rnd=()=>{seed=(seed*16807)%2147483647; return seed/2147483647;};
+  for(let i=0;i<n;i++){ y+= (rnd()-.45)*drift*2; pts.push(y); }
+  const mn=Math.min(...pts), mx=Math.max(...pts), W=320, H=150, P=10;
+  const xy=pts.map((v,i)=>[i/(n-1)*W, H-P-(v-mn)/(mx-mn||1)*(H-2*P)]);
+  const line=xy.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+  const last=xy[xy.length-1];
+  el.innerHTML=`<defs><linearGradient id="gf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3fcf8e" stop-opacity=".35"/><stop offset="1" stop-color="#3fcf8e" stop-opacity="0"/></linearGradient></defs>
+    <path d="${line} L${W},${H} L0,${H} Z" fill="url(#gf)"/>
+    <path d="${line}" fill="none" stroke="#3fcf8e" stroke-width="2" vector-effect="non-scaling-stroke"/>
+    <circle cx="${last[0]-3}" cy="${last[1]}" r="4" fill="#3fcf8e"/>`;
+}
+
+render();
 </script>
 </body>
 </html>
