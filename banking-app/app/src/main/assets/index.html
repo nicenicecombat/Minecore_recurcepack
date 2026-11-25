@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banking App Konzept</title>
+<style>
+:root{
+  --bg:#0b131c; --card:#14202b; --card2:#1a2834; --line:#2a3a48;
+  --text:#eef3f7; --muted:#8a9aa8; --blue:#0a64c2; --blue-soft:#10263a; --link:#3ea6ff;
+  --green:#3fcf8e; --red:#ff6b6b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;display:flex;justify-content:center;min-height:100vh}
+.app{width:100%;max-width:430px;min-height:100vh;display:flex;flex-direction:column;position:relative}
+.demo{align-self:center;margin-top:10px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#f5c26b;border:1px solid #5a4620;background:#2a2112;padding:3px 10px;border-radius:99px}
+header{text-align:center;color:var(--muted);font-size:18px;padding:14px 0 18px;font-weight:500}
+.main{flex:1;padding:0 16px 110px;overflow-y:auto}
+.total{display:flex;align-items:center;gap:14px}
+.total h1{font-size:32px;font-weight:700;letter-spacing:-.5px}
+.eye{background:none;border:0;color:var(--muted);cursor:pointer;padding:4px;display:flex}
+.sub{color:var(--muted);font-size:16px;margin:8px 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.row{display:flex;gap:14px;align-items:flex-start}
+.ico{width:46px;height:46px;border-radius:10px;background:var(--card2);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#b9c7d3}
+.info{flex:1;min-width:0}
+.top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.name{font-size:17px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.amt{font-size:17px;font-weight:600;white-space:nowrap}
+.amt.neg{color:var(--red)}
+.iban{color:var(--muted);font-size:14px;margin-top:4px;font-variant-numeric:tabular-nums}
+.meta{display:flex;justify-content:space-between;font-size:13px;margin-top:6px;color:var(--muted)}
+.up{color:var(--green)}
+.btns{display:flex;gap:8px;margin-top:14px}
+.btn{border:0;border-radius:8px;padding:10px 16px;font-size:15px;cursor:pointer;font-weight:500}
+.btn.primary{background:var(--blue);color:#fff}
+.btn.sec{background:var(--blue-soft);color:var(--link)}
+.bar{height:6px;border-radius:99px;background:var(--card2);margin-top:10px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--link)}
+.pers{display:block;margin:10px auto 0;background:var(--blue-soft);color:var(--link);border:0;border-radius:8px;padding:14px 32px;font-size:18px;cursor:pointer}
+nav{position:fixed;bottom:0;width:100%;max-width:430px;background:var(--bg);border-top:1px solid #16222d;display:flex;justify-content:space-around;padding:10px 0 16px}
+nav a{display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--muted);text-decoration:none;font-size:13px}
+nav a .pill{padding:6px 18px;border-radius:99px;display:flex}
+nav a.active{color:var(--link)}
+nav a.active .pill{background:#13212e}
+.hidden .money{filter:blur(7px);user-select:none}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="demo">Konzept · Demo-Daten</div>
+  <header>Home</header>
+  <div class="main">
+    <div class="total">
+      <h1 class="money" id="total"></h1>
+      <button class="eye" id="eye" aria-label="Kontostände ein-/ausblenden">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+    </div>
+    <div class="sub" id="sub"></div>
+    <div id="list"></div>
+    <button class="pers">Personalisieren</button>
+  </div>
+  <nav>
+    <a href="#" class="active"><span class="pill"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M9 16h6"/></svg></span>Home</a>
+    <a href="#"><span class="pill"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></span>Karten</a>
+    <a href="#"><span class="pill"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15V3m-4 4 4-4 4 4"/><path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/></svg></span>Aufträge</a>
+    <a href="#"><span class="pill"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="6" height="6" rx="1.5"/><circle cx="17" cy="7" r="3"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></svg></span>Produkte</a>
+    <a href="#"><span class="pill"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span>Profil</a>
+  </nav>
+</div>
+<script>
+const I = {
+  bank:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9 12 4l9 5H3z"/><path d="M5 10v7M9 10v7M15 10v7M19 10v7M3 20h18"/></svg>',
+  chart:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 20h18"/><path d="m4 15 5-5 4 3 7-7"/><path d="M15 6h5v5"/></svg>',
+  pig:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 11a7 6 0 0 1 12-2h2v3l-1 1v3h-2l-1 3h-2v-2h-3v2H7l-1-3a5 5 0 0 1-1-5z"/><circle cx="15" cy="11" r=".6" fill="currentColor"/></svg>',
+  safe:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="15" rx="2"/><circle cx="12" cy="11.5" r="3.5"/><path d="M12 8v1M12 14v1M7 19v2M17 19v2"/></svg>',
+  card:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg>'
+};
+// Fiktive Demo-Konten – IBANs sind maskiert/erfunden
+const accounts = [
+  {name:'Girokonto', iban:'DE•• •••• •••• •••• 4471 08', bal:5384.27, icon:'bank', btns:true},
+  {name:'Depot / Trading', iban:'Depot-Nr. ••• 9025 13', bal:68412.90, icon:'chart', meta:['Heute','+412,35 € (+0,61 %)']},
+  {name:'Tagesgeld', iban:'DE•• •••• •••• •••• 4471 16', bal:32150.00, icon:'pig', meta:['Zinssatz','2,75 % p.a.']},
+  {name:'Sparkonto Urlaub', iban:'DE•• •••• •••• •••• 4471 24', bal:4800.00, icon:'safe', goal:6000},
+  {name:'Kreditkarte', iban:'•••• •••• •••• 7319', bal:-1236.48, icon:'card', meta:['Abrechnung','am 01.12.']}
+];
+const fmt = n => n.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+const total = accounts.reduce((s,a)=>s+a.bal,0);
+document.getElementById('total').textContent = fmt(total);
+document.getElementById('sub').textContent = `Gesamter Kontostand (${accounts.length}/${accounts.length}) >`;
+document.getElementById('list').innerHTML = accounts.map(a=>`
+  <div class="card"><div class="row">
+    <div class="ico">${I[a.icon]}</div>
+    <div class="info">
+      <div class="top"><span class="name">${a.name}</span><span class="amt money ${a.bal<0?'neg':''}">${fmt(a.bal)}</span></div>
+      <div class="iban">${a.iban}</div>
+      ${a.meta?`<div class="meta"><span>${a.meta[0]}</span><span class="${a.meta[1].startsWith('+')?'up':''}">${a.meta[1]}</span></div>`:''}
+      ${a.goal?`<div class="meta"><span>Sparziel ${fmt(a.goal)}</span><span>${Math.round(a.bal/a.goal*100)} %</span></div><div class="bar"><span style="width:${Math.min(100,a.bal/a.goal*100)}%"></span></div>`:''}
+    </div></div>
+    ${a.btns?'<div class="btns"><button class="btn primary">Überweisung</button><button class="btn sec">Mehr</button></div>':''}
+  </div>`).join('');
+document.getElementById('eye').onclick = () => document.getElementById('app').classList.toggle('hidden');
+</script>
+</body>
+</html>
